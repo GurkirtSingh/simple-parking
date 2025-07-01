@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Database, Tables} from "@/lib/supabase/database.types";
+import { Tables } from "@/lib/supabase/database.types";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -54,7 +56,14 @@ export default async function Page() {
       ):(
         <div className="text-center text-gray-500">
           You have no properties yet. Please add a property to get started.
+          <div>
+            <Button variant="outline" className="mt-4">
+                <Link href="/protected/properties/add">Add Property</Link>
+            </Button>
+          </div>
+        
         </div>
+        
       )}
     </div>
   );
