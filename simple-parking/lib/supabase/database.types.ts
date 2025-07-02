@@ -68,7 +68,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
-          created_by: string
+          created_by?: string
           id?: string
           name: string
           property_id: string
