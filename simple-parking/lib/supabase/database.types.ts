@@ -38,22 +38,57 @@ export type Database = {
         Row: {
           address: string | null
           created_at: string | null
+          created_by: string | null
           id: string
           name: string
         }
         Insert: {
           address?: string | null
           created_at?: string | null
+          created_by?: string | null
           id?: string
           name: string
         }
         Update: {
           address?: string | null
           created_at?: string | null
+          created_by?: string | null
           id?: string
           name?: string
         }
         Relationships: []
+      }
+      property_levels: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          id: string
+          name: string
+          property_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by: string
+          id?: string
+          name: string
+          property_id: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          name?: string
+          property_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_levels_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_profiles: {
         Row: {
