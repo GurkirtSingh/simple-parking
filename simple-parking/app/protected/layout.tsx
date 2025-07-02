@@ -3,6 +3,7 @@ import { AuthButton } from "@/components/auth-button";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
+import { DashboardButton } from "@/components/dashboard-button";
 
 export default function ProtectedLayout({
   children,
@@ -18,7 +19,8 @@ export default function ProtectedLayout({
               <Link href={"/"}>Simple Parking</Link>
             </div>
             <div className="flex items-center gap-5">
-              {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+              {/* {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />} */}
+              <DashboardButton />
               <ThemeSwitcher />
             </div>
           </div>
