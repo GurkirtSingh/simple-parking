@@ -4,17 +4,24 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { DeletePropertyButton } from '@/components/delete-property';
 
-export default async function Page({ params }: { params: { propertyId: string } }) {
+type DeletePropertyButtonProps = {
+  params: {
+    propertyId: string;
+  }
+};
+
+export default async function Page({params}: DeletePropertyButtonProps) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
         redirect('/auth/login');
     }
 
+    const { propertyId } = await params;
     const { data: property, error: propertyError } = await supabase
         .from('properties')
         .select('*')
-        .eq('id', params.propertyId)
+        .eq('id', propertyId)
         .single();
     if (propertyError) {
         console.error('Error fetching property:', propertyError);
@@ -31,7 +38,7 @@ export default async function Page({ params }: { params: { propertyId: string } 
         <Button variant="outline">
             <Link href="/protected/properties">Go Back</Link>
         </Button>
-        <DeletePropertyButton propertyId={params.propertyId} />
+        <DeletePropertyButton propertyId={propertyId} />
       </div>
     </div>
   );
