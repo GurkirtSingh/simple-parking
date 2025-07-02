@@ -3,7 +3,6 @@ import { createClient } from "@/lib/supabase/server";
 import { Tables } from "@/lib/supabase/database.types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Bold } from "lucide-react";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -43,7 +42,7 @@ export default async function Page() {
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
-        Welcome to your propterties!
+        Welcome to your properties!
       </div>
       {properties.length > 0 ? (
         <div className="flex flex-col gap-4">
@@ -55,6 +54,9 @@ export default async function Page() {
                 <Button variant="outline" className="mr-2">
                   <Link href={`/protected/properties/${property.id}/edit`}>Edit</Link>
                 </Button>
+                <Button variant="outline" className="mr-2">
+                  <Link href={`/protected/properties/${property.id}/delete`}>Delete</Link>
+                </Button>
                 </div>
             </div>
           ))}
@@ -62,15 +64,16 @@ export default async function Page() {
       ):(
         <div className="text-center text-gray-500">
           You have no properties yet. Please add a property to get started.
-          <div>
-            <Button variant="outline" className="mt-4">
-                <Link href="/protected/properties/add">Add Property</Link>
-            </Button>
-          </div>
-        
         </div>
         
       )}
+      <div className="text-center text-gray-500">
+        <div>
+          <Button variant="outline" className="mt-4">
+            <Link href="/protected/properties/add">Add Property</Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
