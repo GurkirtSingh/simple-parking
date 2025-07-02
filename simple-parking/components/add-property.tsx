@@ -13,21 +13,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
 import { handleSupabaseError } from "@/lib/supabaseError";
+import { Database, Tables } from "@/lib/supabase/database.types";
 
-export function AddProperty({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
+
+type PropertyFormProps ={ 
+  property?: Tables<"properties"> | null;
+};
+
+export function PropertyForm({property}: PropertyFormProps) {
+  const [name, setName] = useState(property?.name || "");
+  const [address, setAddress] = useState(property?.address || "");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleAddProperty = async (e: React.FormEvent) => {
+  const handlePropertyForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const supabase = createClient();
     setIsLoading(true);
@@ -41,8 +44,25 @@ export function AddProperty({
             setIsLoading(false);
             return;
         }
-        // insert the new property
-        const { data: property, error: insertError} = await supabase
+        // If a property is provided, update it instead of inserting a new one
+        if (property) {
+            const { data: updatedProperty, error: updateError } = await supabase
+              .from("properties")
+              .update({ name, address })
+              .eq("id", property.id)
+              .select()
+              .single();
+
+            // Handle any error that occurred during the update operation
+            const errorMessage = handleSupabaseError(updateError as PostgrestError | null);
+            if (errorMessage) {
+                setError(errorMessage);
+                setIsLoading(false);
+                return;
+            }
+        } else{
+            // insert the new property
+        const { data: insertedProperty, error: insertError} = await supabase
           .from("properties")
           .insert([{ name, address }])
           .select()
@@ -57,10 +77,10 @@ export function AddProperty({
         }
 
         // If the property was successfully inserted, insert the user-property relationship
-        if (property) {
+        if (insertedProperty) {
           const { error: userPropertyError } = await supabase
             .from("user_properties")
-            .insert([{ user_id: user.id, property_id: property.id, role: "admin" }]);
+            .insert([{ user_id: user.id, property_id: insertedProperty.id, role: "admin" }]);
 
             // Handle any error that occurred during the user-property insert
             if (userPropertyError){
@@ -72,6 +92,8 @@ export function AddProperty({
                 }
             } 
         }
+        }
+        
         router.push("/protected/properties");
           
     } catch (error: unknown) {
@@ -83,14 +105,14 @@ export function AddProperty({
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6")}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Add Property</CardTitle>
-          <CardDescription>Create new property</CardDescription>
+          <CardTitle className="text-2xl">{property ? "Update Property" : "Add Property"}</CardTitle>
+          <CardDescription>{property ? "Edit existing Property" : "Create new property"}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleAddProperty}>
+          <form onSubmit={handlePropertyForm}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
@@ -109,14 +131,14 @@ export function AddProperty({
                 </div>
                 <Input
                   id="address"
-                  type="textfield"
+                  type="text"
                   required
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full" disabled={isLoading || !name || !address}>
                 {isLoading ? "Adding a property..." : "Add Property"}
               </Button>
             </div>
