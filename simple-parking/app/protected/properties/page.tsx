@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Tables } from "@/lib/supabase/database.types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Bold } from "lucide-react";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -50,6 +51,11 @@ export default async function Page() {
             <div key={property.id} className="p-4 border rounded-md">
               <h2 className="text-lg font-semibold">{property.name}</h2>
               <p>{property.address}</p>
+              <div className="mt-2 p-6">
+                <Button variant="outline" className="mr-2">
+                  <Link href={`/protected/properties/${property.id}/edit`}>Edit</Link>
+                </Button>
+                </div>
             </div>
           ))}
         </div>
