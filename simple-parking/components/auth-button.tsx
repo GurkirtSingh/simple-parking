@@ -10,7 +10,7 @@ export async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let first_name = "";
+  let first_name: string = "";
 
   if(user){
     const {data: profile} = await supabase
@@ -19,7 +19,7 @@ export async function AuthButton() {
     .eq("id", user.id)
     .single();
 
-    if (profile) {
+    if (profile && profile.first_name) {
       first_name = profile.first_name;
     }
   }
