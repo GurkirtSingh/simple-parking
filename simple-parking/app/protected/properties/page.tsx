@@ -52,6 +52,9 @@ export default async function Page() {
               <p>{property.address}</p>
               <div className="mt-2 p-6">
                 <Button variant="outline" className="mr-2">
+                  <Link href={`/protected/properties/${property.id}/levels`}>Levels</Link>
+                </Button>
+                <Button variant="outline" className="mr-2">
                   <Link href={`/protected/properties/${property.id}/edit`}>Edit</Link>
                 </Button>
                 <Button variant="outline" className="mr-2">
