@@ -101,6 +101,7 @@ export type Database = {
           is_large: boolean | null
           name: string
           property_id: string
+          property_level_id: string | null
         }
         Insert: {
           created_at?: string | null
@@ -112,6 +113,7 @@ export type Database = {
           is_large?: boolean | null
           name: string
           property_id: string
+          property_level_id?: string | null
         }
         Update: {
           created_at?: string | null
@@ -123,6 +125,7 @@ export type Database = {
           is_large?: boolean | null
           name?: string
           property_id?: string
+          property_level_id?: string | null
         }
         Relationships: [
           {
@@ -130,6 +133,13 @@ export type Database = {
             columns: ["property_id"]
             isOneToOne: false
             referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "property_stalls_property_level_id_fkey"
+            columns: ["property_level_id"]
+            isOneToOne: false
+            referencedRelation: "property_levels"
             referencedColumns: ["id"]
           },
         ]
