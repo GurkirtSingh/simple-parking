@@ -90,6 +90,50 @@ export type Database = {
           },
         ]
       }
+      property_stalls: {
+        Row: {
+          created_at: string | null
+          created_by: string
+          id: string
+          is_accessible: boolean | null
+          is_compact: boolean | null
+          is_electric: boolean | null
+          is_large: boolean | null
+          name: string
+          property_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          is_accessible?: boolean | null
+          is_compact?: boolean | null
+          is_electric?: boolean | null
+          is_large?: boolean | null
+          name: string
+          property_id: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string
+          id?: string
+          is_accessible?: boolean | null
+          is_compact?: boolean | null
+          is_electric?: boolean | null
+          is_large?: boolean | null
+          name?: string
+          property_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_stalls_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_profiles: {
         Row: {
           created_at: string
