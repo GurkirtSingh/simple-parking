@@ -40,13 +40,13 @@ export default async function PropertyStallCard({propertyStall}: PropertyStallCa
                         </CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-between items-center">
-                    <div className="flex space-x-2">
-                        <Button className="mr-2">
+                    <div className="flex gap-2">
+                        <Button variant="outline">
                             <Link href={`/protected/properties/${propertyStall.property_id}/stalls/${propertyStall.id}/edit`}>
                                 Edit
                             </Link>
                         </Button>
-                        <Button variant="outline" className="mr-2">
+                        <Button variant="destructive">
                             <Link href={`/protected/properties/${propertyStall.property_id}/stalls/${propertyStall.id}/delete`}>
                                 Delete
                             </Link>
