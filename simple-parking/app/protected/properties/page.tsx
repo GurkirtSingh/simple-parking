@@ -40,24 +40,26 @@ export default async function Page() {
 
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        Welcome to your properties!
-      </div>
+    <div className="flex-1 w-full flex flex-col items-center justify-start gap-12">
+      <h1 className="text-2xl font-bold mb-4">Welcome to your properties!</h1>
+        
       {properties.length > 0 ? (
         <div className="flex flex-col gap-4">
           {properties.map((property) => (
             <div key={property.id} className="p-4 border rounded-md">
               <h2 className="text-lg font-semibold">{property.name}</h2>
               <p>{property.address}</p>
-              <div className="mt-2 p-6">
+              <div className="flex gap-2 mt-2">
+                <Button variant="outline" className="mr-2">
+                  <Link href={`/protected/properties/${property.id}/stalls`}>Stalls</Link>
+                </Button>
                 <Button variant="outline" className="mr-2">
                   <Link href={`/protected/properties/${property.id}/levels`}>Levels</Link>
                 </Button>
                 <Button variant="outline" className="mr-2">
                   <Link href={`/protected/properties/${property.id}/edit`}>Edit</Link>
                 </Button>
-                <Button variant="outline" className="mr-2">
+                <Button variant="destructive" className="mr-2">
                   <Link href={`/protected/properties/${property.id}/delete`}>Delete</Link>
                 </Button>
                 </div>
