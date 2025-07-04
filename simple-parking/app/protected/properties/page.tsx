@@ -3,7 +3,6 @@ import { createClient } from "@/lib/supabase/server";
 import { Tables } from "@/lib/supabase/database.types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Table } from "lucide-react";
 import PropertyCard from "@/components/property/property-card";
 
 export default async function Page() {
