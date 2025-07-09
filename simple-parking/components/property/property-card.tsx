@@ -19,7 +19,10 @@ export default async function PropertyCard({property}: PropertyCardProps) {
                         </CardDescription>
                 </CardHeader>
                 <CardContent className="flex justify-between items-center">
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
+                        <Button variant="outline">
+                            <Link href={`/protected/properties/${property.id}/reservations`}>Reservations</Link>
+                        </Button>
                         <Button variant="outline">
                             <Link href={`/protected/properties/${property.id}/stalls`}>Stalls</Link>
                         </Button>
