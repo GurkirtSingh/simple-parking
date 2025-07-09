@@ -40,6 +40,7 @@ export type Database = {
           created_at: string | null
           created_by: string | null
           id: string
+          is_active: boolean | null
           name: string
         }
         Insert: {
@@ -47,6 +48,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           id?: string
+          is_active?: boolean | null
           name: string
         }
         Update: {
@@ -54,6 +56,7 @@ export type Database = {
           created_at?: string | null
           created_by?: string | null
           id?: string
+          is_active?: boolean | null
           name?: string
         }
         Relationships: []
@@ -96,6 +99,7 @@ export type Database = {
           created_by: string
           id: string
           is_accessible: boolean | null
+          is_active: boolean | null
           is_compact: boolean | null
           is_electric: boolean | null
           is_large: boolean | null
@@ -108,6 +112,7 @@ export type Database = {
           created_by?: string
           id?: string
           is_accessible?: boolean | null
+          is_active?: boolean | null
           is_compact?: boolean | null
           is_electric?: boolean | null
           is_large?: boolean | null
@@ -120,6 +125,7 @@ export type Database = {
           created_by?: string
           id?: string
           is_accessible?: boolean | null
+          is_active?: boolean | null
           is_compact?: boolean | null
           is_electric?: boolean | null
           is_large?: boolean | null
@@ -140,6 +146,69 @@ export type Database = {
             columns: ["property_level_id"]
             isOneToOne: false
             referencedRelation: "property_levels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reservations: {
+        Row: {
+          check_in: string
+          check_out: string
+          created_at: string | null
+          created_by: string | null
+          hotel_reservation_number: string | null
+          hotel_room_number: string | null
+          id: string
+          is_staff: boolean | null
+          license_plate: string | null
+          notes: string | null
+          property_id: string
+          staff_name: string | null
+          stall_id: string
+        }
+        Insert: {
+          check_in?: string
+          check_out: string
+          created_at?: string | null
+          created_by?: string | null
+          hotel_reservation_number?: string | null
+          hotel_room_number?: string | null
+          id?: string
+          is_staff?: boolean | null
+          license_plate?: string | null
+          notes?: string | null
+          property_id: string
+          staff_name?: string | null
+          stall_id: string
+        }
+        Update: {
+          check_in?: string
+          check_out?: string
+          created_at?: string | null
+          created_by?: string | null
+          hotel_reservation_number?: string | null
+          hotel_room_number?: string | null
+          id?: string
+          is_staff?: boolean | null
+          license_plate?: string | null
+          notes?: string | null
+          property_id?: string
+          staff_name?: string | null
+          stall_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_property"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_stall"
+            columns: ["stall_id"]
+            isOneToOne: false
+            referencedRelation: "property_stalls"
             referencedColumns: ["id"]
           },
         ]
@@ -193,7 +262,50 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      current_reservation_status: {
+        Row: {
+          hotel_reservation_number: string | null
+          hotel_room_number: string | null
+          is_staff: boolean | null
+          license_plate: string | null
+          notes: string | null
+          reservation_id: string | null
+          staff_name: string | null
+          stall_id: string | null
+          status: string | null
+        }
+        Insert: {
+          hotel_reservation_number?: string | null
+          hotel_room_number?: string | null
+          is_staff?: boolean | null
+          license_plate?: string | null
+          notes?: string | null
+          reservation_id?: string | null
+          staff_name?: string | null
+          stall_id?: string | null
+          status?: never
+        }
+        Update: {
+          hotel_reservation_number?: string | null
+          hotel_room_number?: string | null
+          is_staff?: boolean | null
+          license_plate?: string | null
+          notes?: string | null
+          reservation_id?: string | null
+          staff_name?: string | null
+          stall_id?: string | null
+          status?: never
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_stall"
+            columns: ["stall_id"]
+            isOneToOne: false
+            referencedRelation: "property_stalls"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never
