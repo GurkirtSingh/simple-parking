@@ -1,6 +1,20 @@
 import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 
+export async function getUserProperties(userId: string){
+    const supabase = await createClient()
+
+    const {data: userProperties, error} = await supabase.from('user_properties').select('property_id').eq('user_id', userId)
+    if(error){
+        return {
+            error
+        }
+    }
+    return {
+        userProperties
+    }
+}
+
 export async function getProperty(propertyId: string) {
     const supabase = await createClient();
 
