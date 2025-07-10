@@ -19,8 +19,7 @@ export default function ProtectedLayout({
               <Link href={"/"}>Simple Parking</Link>
             </div>
             <div className="flex items-center gap-5">
-              {/* {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />} */}
-              <DashboardButton />
+              {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
               <ThemeSwitcher />
             </div>
           </div>
