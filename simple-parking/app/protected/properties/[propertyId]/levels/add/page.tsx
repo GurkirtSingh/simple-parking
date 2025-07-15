@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { PropertyLevelForm } from "@/components/property/levels/level-form";
-export default async function Page({ params }: { params: { propertyId: string } }) {
+export default async function Page({ params }: { params: Promise<{ propertyId: string }> }) {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();

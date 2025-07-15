@@ -11,5 +11,5 @@ export function DashboardButton() {
     router.push("/protected/dashboard");
   };
 
-  return <Button className="bg-green-500" onClick={goToDashboard}>Dashboard</Button>;
+  return <Button variant='outline' onClick={goToDashboard}>Dashboard</Button>;
 }

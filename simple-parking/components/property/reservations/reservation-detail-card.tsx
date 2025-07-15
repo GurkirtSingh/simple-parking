@@ -11,6 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
+import CheckoutReservationButton from "./checkout-button";
+import { Check } from "lucide-react";
 
 function formatDateTime(date: string) {
     const d = new Date(date);
@@ -30,7 +32,7 @@ type ReservationDetailCardProps = {
 
 export function ReservationDetailCard({ propertyId, reservation, stall }: ReservationDetailCardProps) {
     return (
-        <Card className="w-full md:w-1/2">
+        <Card className="w-full max-w-2xl">
             <CardHeader>
                 <CardTitle className="text-xl">Details</CardTitle>
                 <CardDescription>Showing all details of reservation</CardDescription>
@@ -86,21 +88,24 @@ export function ReservationDetailCard({ propertyId, reservation, stall }: Reserv
                             </div>
                         </>
                     )}
-                    <Textarea 
-                    readOnly
-                    rows={4}
-                    value={reservation.notes ?? "No Notes"}
+                    <Textarea
+                        readOnly
+                        rows={4}
+                        value={reservation.notes ?? "No Notes"}
                     >
                     </Textarea>
                     <div className="flex items-center justify-between border rounded p-4">
-                                <span>ID</span>
-                                <span className="text-muted-foreground">
-                                    {reservation.id}
-                                </span>
-                            </div>
-                    <Button variant="default">
-                        <Link href={`/protected/properties/${propertyId}/reservations/${reservation.id}/delete`} >Remove</Link>
-                    </Button>
+                        <span>ID</span>
+                        <span className="text-muted-foreground">
+                            {reservation.id}
+                        </span>
+                    </div>
+                    {reservation.checked_out ? (
+                        <div className="flex items-center justify-between border rounded p-4">
+                            <span>Checked Out</span>
+                            <Check/>
+                        </div>
+                    ) : (<CheckoutReservationButton propertyId={propertyId} reservationId={reservation.id} />)}
                 </div>
             </CardContent>
             <CardFooter>

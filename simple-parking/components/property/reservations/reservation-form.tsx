@@ -130,7 +130,8 @@ export function ReservationFrom({
                     license_plate: licensePlate,
                     check_in: combinedCheckIn,
                     check_out: combinedCheckOut,
-                    notes: notes
+                    notes: notes,
+                    checked_out: false
                 });
                 if (updateError) {
                     setError(updateError);
@@ -149,6 +150,7 @@ export function ReservationFrom({
                     check_in: combinedCheckIn,
                     check_out: combinedCheckOut,
                     notes: notes,
+                    checked_out: false
                 });
                 if (insertError) {
                     setError(insertError);
@@ -156,7 +158,7 @@ export function ReservationFrom({
                 }
             }
             // Redirect to property levels page
-            router.push(`/protected/properties/${propertyId}/reservations`);
+            router.back()
         } catch (error: unknown) {
             setError(error instanceof Error ? error.message : "An error occurred");
         } finally {
@@ -166,7 +168,7 @@ export function ReservationFrom({
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card className="w-full">
+            <Card className="w-full max-w-2xl">
                 <CardHeader>
                     <CardTitle className="text-xl">{reservation ? "Update Reservation" : "New Reservation"}</CardTitle>
                     <CardDescription>

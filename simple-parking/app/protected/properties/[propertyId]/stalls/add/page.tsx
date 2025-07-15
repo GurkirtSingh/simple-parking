@@ -2,19 +2,19 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { PropertyStallForm } from "@/components/property/stalls/stall-form";
 
-type PropertyLevelPageProps = {
+type PropertyLevelPageProps = Promise<{
   params: {
     propertyId: string;
   };
-};
-export default async function Page({ params }: PropertyLevelPageProps) {
+}>
+export default async function Page({ params }: {params:PropertyLevelPageProps}) {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/auth/login");
   }
-  const { propertyId } = await params;
+  const { propertyId } = (await params).params
     return (
     <div className="flex w-full items-start justify-center">
         {propertyId ? (

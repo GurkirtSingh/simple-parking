@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PropertyLevelCard } from "@/components/property/levels/level-card";
 
 
-export default async function Page({ params }: { params: { propertyId: string } }) {
+export default async function Page({ params }: { params: Promise<{ propertyId: string }> }) {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();

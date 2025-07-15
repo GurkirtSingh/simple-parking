@@ -1,5 +1,6 @@
 import { ReservationFrom } from "@/components/property/reservations/reservation-form";
 import { getReservationById } from '@/app/protected/properties/[propertyId]/reservations/actions';
+import SlideOverModal from "@/components/ui/slide-over-modal";
 
 type PropertyReservationEditPageProps = Promise<{
     params: {
@@ -8,8 +9,8 @@ type PropertyReservationEditPageProps = Promise<{
     };
 }>;
 
-export default async function Page({ params }: {params:PropertyReservationEditPageProps}) {
-    const { propertyId, reservationId } = (await params).params
+export default async function Page({ params }: {params: PropertyReservationEditPageProps}) {
+    const { propertyId, reservationId } = (await params).params;
     const { data: reservation, error } = await getReservationById(reservationId);
     if (error) {
         return (
@@ -26,10 +27,9 @@ export default async function Page({ params }: {params:PropertyReservationEditPa
         )
     }
     return (
-        <div className="flex w-full items-center justify-center">
-            <div className="w-full max-w-sm">
-                <ReservationFrom propertyId={propertyId} stallId={reservation.stall_id} reservation={reservation} />
-            </div>
-        </div>
+        <SlideOverModal>
+            <ReservationFrom propertyId={propertyId} stallId={reservation.stall_id} reservation={reservation} />
+        </SlideOverModal>
+
     );
 }

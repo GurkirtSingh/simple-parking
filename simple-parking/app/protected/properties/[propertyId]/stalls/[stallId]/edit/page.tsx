@@ -6,21 +6,21 @@ import { Button } from "@/components/ui/button";
 import { PropertyLevelForm } from "@/components/property/levels/level-form";
 import { PropertyStallForm } from "@/components/property/stalls/stall-form";
 
-type PropertyStallEditPageProps = {
+type PropertyStallEditPageProps = Promise<{
     params: { 
         propertyId: string;
         stallId: string 
     };
-}
+}>
 
-export default async function Page({params}: PropertyStallEditPageProps) {
+export default async function Page({params}: {params:PropertyStallEditPageProps}) {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/auth/login");
   }
-  const { propertyId ,stallId } = await params;
+  const { propertyId ,stallId } = (await params).params
   let propertyStall: Tables<"property_stalls"> | null = null;
 
 

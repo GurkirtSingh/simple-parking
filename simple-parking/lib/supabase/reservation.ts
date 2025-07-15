@@ -79,10 +79,12 @@ export async function insertReservations(reservation: NewReservation) {
         return {
             error: error.message || "Failed to insert reservation",
         };
+    } else {
+        revalidatePath(`/protected/properties/${reservation.property_id}/reservations`)
+        return {
+            success: data
+        }
     }
-
-    revalidatePath(`/protected/properties/${reservation.property_id}/reservations`)
-    redirect(`/protected/properties/${reservation.property_id}/reservations?created=1`)
 }
 
 type UpdateReservation = Omit<Tables<"reservations">, 'created_by' | 'created_at'>;
@@ -116,9 +118,12 @@ export async function updateReservations(reservation: UpdateReservation) {
         return {
             error: error.message || "Failed to update reservation",
         };
+    }else {
+        revalidatePath(`/protected/properties/${reservation.property_id}/reservations`)
+        return {
+            success: data
+        }
     }
-    revalidatePath(`/protected/properties/${reservation.property_id}/reservations`)
-    redirect(`/protected/properties/${reservation.property_id}/reservations?updated=1`)
 }
 
 type DeleteReservation = {
@@ -133,5 +138,22 @@ export async function deleteReservation({ propertyId, reservationId }: DeleteRes
     } else {
         revalidatePath(`/protected/properties/${propertyId}/reservations`)
         redirect(`/protected/properties/${propertyId}/reservations?deleted=1`)
+    }
+}
+
+type CheckoutReservationProps = {
+    reservationId: string;
+}
+export async function checkoutReservation({ reservationId }: CheckoutReservationProps) {
+    const supabse = await createClient()
+    const { error } = await supabse.from('reservations').update({checked_out : true, check_out : new Date().toISOString()}).eq('id', reservationId)
+    if (error) {
+        return {
+            error: error.message
+        }
+    } else {
+        return {
+            success: true
+        }
     }
 }
