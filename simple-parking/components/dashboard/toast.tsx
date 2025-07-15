@@ -23,6 +23,6 @@ export default function DashboardToast() {
             router.replace(`/protected/dashboard?${newParams.toString()}`)
         }
 
-    }, [searchParams])
+    }, [searchParams, router])
     return null
 }

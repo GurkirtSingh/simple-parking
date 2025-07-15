@@ -30,6 +30,6 @@ export default function PropertiesToast() {
         newParams.delete('delete')
         router.replace(`/protected/properties?${newParams.toString()}`)
     }
-}, [searchParams])
+}, [searchParams, router])
     return null
 }
