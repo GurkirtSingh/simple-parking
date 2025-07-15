@@ -4,6 +4,7 @@ import { Tables } from "@/lib/supabase/database.types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import PropertyCard from "@/components/property/property-card";
+import PropertiesToast from "@/components/property/toast";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -55,6 +56,7 @@ export default async function Page() {
 
   return (
     <div className="flex-1 w-full flex flex-col items-center justify-start gap-12">
+      <PropertiesToast/>
       <h1 className="text-2xl font-bold mb-4">{userPropfile ? `Hello ${userPropfile.first_name}, ` : ""}Welcome to your properties!</h1>
         
       {properties.length > 0 ? (
