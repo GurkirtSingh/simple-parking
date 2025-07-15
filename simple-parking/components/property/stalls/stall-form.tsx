@@ -62,7 +62,7 @@ export function PropertyStallForm({
             }
         };
         fetchPropertyLevels();
-    }),[propertyId];
+    },[propertyId]);
 
 
   const handlePropertyStallForm = async (e: React.FormEvent) => {
