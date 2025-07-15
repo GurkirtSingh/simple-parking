@@ -1,8 +1,5 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Tables } from "@/lib/supabase/database.types";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { PropertyForm } from "@/components/add-property";
 
 
@@ -19,6 +16,14 @@ export default async function Page({ params }: { params: Promise<{ propertyId: s
     .select("*")
     .eq("id", propertyId)
     .maybeSingle();
+  
+  if(propertyError){
+    return (
+      <div className="flex items-center justify-center">
+        <span className="text-red-400">{propertyError.message}</span>
+      </div>
+    )
+  }
 
     return (
     <div className="flex w-full items-center justify-center p-10 md:p-10">

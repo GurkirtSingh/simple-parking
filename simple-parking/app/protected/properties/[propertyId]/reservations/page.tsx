@@ -16,7 +16,6 @@ export default async function Page({ params }: { params: Promise<PropertyReserva
 
     let reservations: Tables<'reservations'>[] = [];
     try {
-        const user = await getUser();
         reservations = await getPropertyReservations({ property_id: propertyId });
     } catch (error) {
         console.error("Error fetching property or reservations:", error);

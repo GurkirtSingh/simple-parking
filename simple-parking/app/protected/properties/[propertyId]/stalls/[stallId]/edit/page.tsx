@@ -1,9 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Tables } from "@/lib/supabase/database.types";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { PropertyLevelForm } from "@/components/property/levels/level-form";
 import { PropertyStallForm } from "@/components/property/stalls/stall-form";
 
 type PropertyStallEditPageParams = {

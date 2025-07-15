@@ -8,7 +8,6 @@ import {
     CardContent,
     CardFooter
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
 import CheckoutReservationButton from "./checkout-button";

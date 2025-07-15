@@ -16,11 +16,10 @@ export default async function Page() {
 
   // Fetch user profile data to greet the user
   // If no profile is found, redirect to setup profile page
-  let first_name = "";
   if (data.user) {
     const { data: profile, error } = await supabase
       .from('user_profiles')
-      .select('*')
+      .select('id')
       .eq('id', data.user.id)
       .maybeSingle();
     if (error) {
@@ -30,7 +29,6 @@ export default async function Page() {
     if (!profile) {
       redirect("/protected/setup-profile");
     }
-    first_name = profile?.first_name || "";
   }
   // fetch user assigned properties
   const { data: userProperties, error:userPropertieserror } = await supabase

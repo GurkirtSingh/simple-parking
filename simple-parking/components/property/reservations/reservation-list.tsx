@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/table';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 type ReservationListProps = {
   className?: string;
@@ -19,7 +18,6 @@ type ReservationListProps = {
   reservations: Tables<'reservations'>[];
 }
 export function ReservationList({ propertyId, reservations }: ReservationListProps) {
-  const [stalls, setStalls] = useState<Tables<"property_stalls">[]>([])
   const [stallMap, setStallMap] = useState<Record<string, string>>({});
 useEffect(() => {
   const key = `stalls:${propertyId}`;
@@ -30,7 +28,6 @@ useEffect(() => {
     try {
       const parsed = JSON.parse(cached) as Tables<"property_stalls">[];
       if (Array.isArray(parsed)) {
-        setStalls(parsed);
         const map = Object.fromEntries(parsed.map(stall => [stall.id, stall.name || stall.id]));
         setStallMap(map);
         return parsed;
@@ -58,7 +55,6 @@ useEffect(() => {
       const cached = loadFromCache();
       const isDifferent = JSON.stringify(cached) !== JSON.stringify(data);
       if (isDifferent) {
-        setStalls(data);
         const map = Object.fromEntries(data.map(stall => [stall.id, stall.name || stall.id]));
         setStallMap(map);
         localStorage.setItem(key, JSON.stringify(data));

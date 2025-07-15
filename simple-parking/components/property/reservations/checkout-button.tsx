@@ -10,7 +10,7 @@ type CheckoutbuttonProps = {
     propertyId: string;
     reservationId: string;
 }
-export default function CheckoutReservationButton({ className,propertyId, reservationId, ...props}: CheckoutbuttonProps){
+export default function CheckoutReservationButton({ className, reservationId, ...props}: CheckoutbuttonProps){
     const router = useRouter()
     const handleCheckout = async ()=>{
         const {error} = await checkoutReservation({reservationId})

@@ -30,14 +30,14 @@ export function ParkingGrid({ propertyId }: ParkingGridProps) {
         const channel = supabase.channel('table_db_changes').on(
             'postgres_changes',
             { event: '*', schema: 'public', table: 'reservations' },
-            (paylod) => {
+            () => {
                 fetchReservationStatus()
             }
         ).subscribe()
 
         fetchReservationStatus()
         return () => { channel.unsubscribe() }
-    }, [propertyId])
+    }, [propertyId, supabase])
 
     // fetch property's all stalls
     useEffect(() => {

@@ -1,8 +1,5 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { Tables } from "@/lib/supabase/database.types";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { PropertyLevelForm } from "@/components/property/levels/level-form";
 
 type PropertyLevelPageParams = {
@@ -23,12 +20,27 @@ export default async function Page({ params }: { params: Promise<PropertyLevelPa
         .select("*")
         .eq("id", propertyId)
         .maybeSingle();
+    if (propertyError) {
+        return (
+            <div className="flex items-center justify-center">
+                <span className="text-red-400">{propertyError.message}</span>
+            </div>
+        )
+    }
 
   const { data: propertyLevel, error: propertyLevelError } = await supabase
     .from("property_levels")
     .select("*")
     .eq("id", levelId)
     .maybeSingle();
+
+    if (propertyLevelError) {
+        return (
+            <div className="flex items-center justify-center">
+                <span className="text-red-400">{propertyLevelError.message}</span>
+            </div>
+        )
+    }
 
     return (
     <div className="flex w-full items-center justify-center p-10 md:p-10">

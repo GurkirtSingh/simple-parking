@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
 import { handleSupabaseError } from "@/lib/supabaseError";
-import { Database, Tables } from "@/lib/supabase/database.types";
+import { Tables } from "@/lib/supabase/database.types";
 
 
 type PropertyFormProps ={ 
@@ -46,7 +46,7 @@ export function PropertyForm({property}: PropertyFormProps) {
         }
         // If a property is provided, update it instead of inserting a new one
         if (property) {
-            const { data: updatedProperty, error: updateError } = await supabase
+            const { error: updateError } = await supabase
               .from("properties")
               .update({ name, address })
               .eq("id", property.id)

@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { X, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 
 type SlideOverModalProps = {
   children: ReactNode
