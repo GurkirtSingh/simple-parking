@@ -16,7 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Tables } from "@/lib/supabase/database.types";
 import { insertReservations, updateReservations } from "@/lib/supabase/reservation";
@@ -55,6 +55,7 @@ export function ReservationFrom({
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams()
 
     useEffect(() => {
         const fetchStalls = async () => {
@@ -93,10 +94,18 @@ export function ReservationFrom({
     }, [propertyId]);
 
     useEffect(() => {
-        if (stallId) {
-            setSelectedStall(stalls.find(stall => stall.id === stallId))
+        if (!stalls.length) return;
+
+        const stallIdFromUrl = searchParams?.get("stallId");
+        const targetStallId = stallId || stallIdFromUrl;
+
+        if (targetStallId) {
+            const found = stalls.find((stall) => stall.id === targetStallId);
+            if (found) {
+                setSelectedStall(found);
+            }
         }
-    }, [stallId, stalls])
+    }, [stallId, stalls, searchParams]);
 
     const handleReservationForm = async (e: React.FormEvent) => {
         e.preventDefault();
