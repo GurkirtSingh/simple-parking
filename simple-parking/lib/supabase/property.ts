@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 export async function getUserProperties(userId: string){
     const supabase = await createClient()
 
-    const {data: userProperties, error} = await supabase.from('user_properties').select('property_id').eq('user_id', userId)
+    const {data: userProperties, error} = await supabase.from('user_properties').select('*').eq('user_id', userId)
     if(error){
         return {
             error
