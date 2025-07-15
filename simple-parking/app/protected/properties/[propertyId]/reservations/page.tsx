@@ -1,7 +1,6 @@
 import { getPropertyReservations } from '@/app/protected/properties/[propertyId]/reservations/actions';
 import { ReservationList } from '@/components/property/reservations/reservation-list';
 import { Tables } from '@/lib/supabase/database.types';
-import { getUser } from '@/lib/supabase/property';
 import { ReservationDeletedToast, ReservationCreatedToast } from '@/components/property/reservations/reservation-toast';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
