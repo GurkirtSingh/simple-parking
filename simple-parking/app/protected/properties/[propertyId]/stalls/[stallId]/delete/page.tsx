@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<PropertyStallDe
     if (error || !data?.user) {
         redirect("/auth/login");
     }
-    const { propertyId, stallId } = await params;
+    const { stallId } = await params;
     // Delete the property level
     const { error: deleteError } = await supabase
         .from("property_stalls")
