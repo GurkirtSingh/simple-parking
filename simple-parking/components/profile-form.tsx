@@ -24,7 +24,6 @@ export function ProfileForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +46,7 @@ export function ProfileForm({
       if (insertError) throw insertError;
 
       // Update this route to redirect to an authenticated route. The user already has an active session.
-      router.push(searchParams.get("redirectTo") || "/protected/dashboard");
+      router.push("/protected/dashboard");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
