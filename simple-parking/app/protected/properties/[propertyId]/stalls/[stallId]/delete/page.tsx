@@ -1,19 +1,19 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-type PropertyStallDeletePageProps = {
-    params: { 
+type PropertyStallDeletePageProps = Promise<{
+    params: {
         propertyId: string;
-        stallId: string 
+        stallId: string
     };
-}
+}>
 
-export default async function Page({params}: PropertyStallDeletePageProps) {
+export default async function Page({ params }: {params:PropertyStallDeletePageProps}) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
         redirect("/auth/login");
     }
-    const { stallId } = await params;
+    const { stallId } = (await params).params;
     // Delete the property level
     const { error: deleteError } = await supabase
         .from("property_stalls")
@@ -21,7 +21,9 @@ export default async function Page({params}: PropertyStallDeletePageProps) {
         .eq("id", stallId)
 
     if (deleteError) {
-        console.error("Error deleting property level:", deleteError);
+        if (deleteError?.code === '23503') {
+            return "This stall is in use and can't be deleted."
+        }
         return <div>Error deleting property level.</div>;
     }
 
