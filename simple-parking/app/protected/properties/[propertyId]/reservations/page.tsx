@@ -6,16 +6,14 @@ import { ReservationDeletedToast, ReservationCreatedToast } from '@/components/p
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-type PropertyReservationsPageProps = Promise<{
-    params: {
-        propertyId: string;
-    };
-}>;
+type PropertyReservationsPageParams = {
+    propertyId: string;
+};
 
-export default async function Page({ params }: {params:PropertyReservationsPageProps}) {
+export default async function Page({ params }: { params: Promise<PropertyReservationsPageParams> }) {
 
-    const {params: { propertyId }} = await params;
-    let property: Tables<'properties'> | null = null;
+    const { propertyId } = await params;
+
     let reservations: Tables<'reservations'>[] = [];
     try {
         const user = await getUser();
