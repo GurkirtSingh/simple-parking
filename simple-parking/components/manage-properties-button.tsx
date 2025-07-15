@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { getUser, getUserProperties } from "@/lib/supabase/property";
+import { cn } from "@/lib/utils";
 
 type ManagePropertiesButtonProps = {
     className?: string
@@ -17,7 +18,7 @@ export default async function ManagePropertiesButton({ className }: ManageProper
         }
     }
     return (
-        <div>
+        <div className={cn(className)}>
             <Link href={`/protected/properties`}>
                 <Button variant="outline">Manage Properties</Button>
             </Link>
