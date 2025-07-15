@@ -1,15 +1,13 @@
 import { ReservationFrom } from "@/components/property/reservations/reservation-form";
 import { getReservationById } from '@/app/protected/properties/[propertyId]/reservations/actions';
 
-type PropertyReservationEditPageProps = Promise<{
-    params: {
-        propertyId: string;
-        reservationId: string;
-    };
-}>;
+type PropertyReservationEditPageParams = {
+    propertyId: string;
+    reservationId: string;
+};
 
-export default async function Page({ params }: {params:PropertyReservationEditPageProps}) {
-    const { propertyId, reservationId } = (await params).params
+export default async function Page({ params }: { params: Promise<PropertyReservationEditPageParams> }) {
+    const { propertyId, reservationId } = await params;
     const { data: reservation, error } = await getReservationById(reservationId);
     if (error) {
         return (

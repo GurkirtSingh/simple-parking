@@ -1,19 +1,17 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-type PropertyLevelPageProps = Promise<{
-    params: { 
-        propertyId: string;
-        levelId: string 
-    };
-}>
+type PropertyLevelPageParams = {
+    propertyId: string;
+    levelId: string;
+};
 
-export default async function Page({params}: {params: PropertyLevelPageProps}) {
+export default async function Page({ params }: { params: Promise<PropertyLevelPageParams> }) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
         redirect("/auth/login");
     }
-    const { propertyId, levelId } = (await params).params;
+    const { propertyId, levelId } = await params;
     const { data: property, error: propertyError } = await supabase
         .from("properties")
         .select("*")

@@ -2,15 +2,13 @@ import { ReservationFrom } from "@/components/property/reservations/reservation-
 import { getReservationById } from '@/app/protected/properties/[propertyId]/reservations/actions';
 import SlideOverModal from "@/components/ui/slide-over-modal";
 
-type PropertyReservationEditPageProps = Promise<{
-    params: {
-        propertyId: string;
-        reservationId: string;
-    };
-}>;
+type PropertyReservationEditPageProps = {
+    propertyId: string;
+    reservationId: string;
+};
 
-export default async function Page({ params }: {params: PropertyReservationEditPageProps}) {
-    const { propertyId, reservationId } = (await params).params;
+export default async function Page({ params }: { params: Promise<PropertyReservationEditPageProps> }) {
+    const { propertyId, reservationId } = await params;
     const { data: reservation, error } = await getReservationById(reservationId);
     if (error) {
         return (

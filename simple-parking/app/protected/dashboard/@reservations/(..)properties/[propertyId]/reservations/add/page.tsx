@@ -1,15 +1,13 @@
 import { ReservationFrom } from "@/components/property/reservations/reservation-form";
 import SlideOverModal from "@/components/ui/slide-over-modal";
 
-type PropertyReservationAddPageProps = Promise<{
-  params: {
-    propertyId: string;
-  };
-}>;
+type PropertyReservationAddPageParams = {
+  propertyId: string;
+};
 
-export default async function Page({ params }: {params:PropertyReservationAddPageProps}) {
+export default async function Page({ params }: { params: Promise<PropertyReservationAddPageParams> }) {
 
-  const { propertyId } = (await params).params;
+  const { propertyId } = await params;
   return (
       <SlideOverModal>
         <ReservationFrom propertyId={propertyId} />

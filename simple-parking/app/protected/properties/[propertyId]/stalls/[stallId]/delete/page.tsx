@@ -1,19 +1,17 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-type PropertyStallDeletePageProps = Promise<{
-    params: {
-        propertyId: string;
-        stallId: string
-    };
-}>
+type PropertyStallDeletePageParams = {
+    propertyId: string;
+    stallId: string;
+  };
 
-export default async function Page({ params }: {params:PropertyStallDeletePageProps}) {
+export default async function Page({ params }: { params: Promise<PropertyStallDeletePageParams> }) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
         redirect("/auth/login");
     }
-    const { stallId } = (await params).params;
+    const { propertyId, stallId } = await params;
     // Delete the property level
     const { error: deleteError } = await supabase
         .from("property_stalls")

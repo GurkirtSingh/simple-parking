@@ -14,7 +14,7 @@ type PropertyReservationsPageProps = Promise<{
 
 export default async function Page({ params }: {params:PropertyReservationsPageProps}) {
 
-    const { propertyId } = (await params).params;
+    const {params: { propertyId }} = await params;
     let property: Tables<'properties'> | null = null;
     let reservations: Tables<'reservations'>[] = [];
     try {

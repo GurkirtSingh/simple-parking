@@ -1,14 +1,12 @@
 import { getReservationById } from '@/app/protected/properties/[propertyId]/reservations/actions';
 import { ReservationDetailCard } from '@/components/property/reservations/reservation-detail-card';
 import { getStallById } from '@/lib/supabase/stall';
-type DetailPageProps = Promise<{
-    params: {
-        propertyId: string;
-        reservationId: string;
-    }
-}>
-export default async function Page({params}: {params: DetailPageProps}){
-    const {propertyId, reservationId} = (await params).params
+type DetailPageParams = {
+    propertyId: string;
+    reservationId: string;
+};
+export default async function Page({ params }: { params: Promise<DetailPageParams> }) {
+    const { propertyId, reservationId } = await params;
     const { data: reservation, error: reservationeError } = await getReservationById(reservationId);
     if (reservationeError) {
         return <p className='text-muted-foreground'>{reservationeError}</p>;

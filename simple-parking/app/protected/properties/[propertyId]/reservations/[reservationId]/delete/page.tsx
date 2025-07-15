@@ -1,15 +1,13 @@
 import { getReservationById } from '@/app/protected/properties/[propertyId]/reservations/actions'
 import ReservationDeleteForm from "@/components/property/reservations/reservation-delete-form"
 
-type DeletePageProps = Promise<{
-    params: { 
-        propertyId: string;
-        reservationId: string;
-    }
-}>
+type DeletePageParams = {
+    propertyId: string;
+    reservationId: string;
+};
 
-export default async function Page({ params }: {params:DeletePageProps}) {
-    const {propertyId, reservationId} = (await params).params
+export default async function Page({ params }: { params: Promise<DeletePageParams> }) {
+    const { propertyId, reservationId } = await params;
     const { data: reservation } = await getReservationById(reservationId)
     if (!reservation) {
         return <>Could Not Found Reservation</>
