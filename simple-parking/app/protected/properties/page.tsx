@@ -27,7 +27,7 @@ export default async function Page() {
     userPropfile = propfile;
   }
 
-  let properties: Tables<"properties">[] = [];
+  const properties: Tables<"properties">[] = [];
 
   const { data: userProperties, error: propertiesError } = await supabase
     .from("user_properties")
