@@ -5,21 +5,21 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PropertyLevelForm } from "@/components/property/levels/level-form";
 
-type PropertyLevelPageProps = {
+type PropertyLevelPageProps = Promise<{
     params: { 
         propertyId: string;
         levelId: string 
     };
-}
+}>
 
-export default async function Page({params}: PropertyLevelPageProps) {
+export default async function Page({params}: {params:PropertyLevelPageProps}) {
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/auth/login");
   }
-  const { propertyId ,levelId } = await params;
+  const { propertyId ,levelId } = (await params).params;
   const { data: property, error: propertyError } = await supabase
         .from("properties")
         .select("*")

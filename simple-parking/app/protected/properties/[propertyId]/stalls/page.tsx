@@ -4,13 +4,13 @@ import { Tables } from "@/lib/supabase/database.types";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import PropertyStallCard from "@/components/property/stalls/stall-card";
-type PropertyStallsPageProps = {
+type PropertyStallsPageProps = Promise<{
     params: {
         propertyId: string;
     };
-};
-export default async function Page({params}: PropertyStallsPageProps) {
-    const { propertyId } = await params;
+}>;
+export default async function Page({params}: {params:PropertyStallsPageProps}) {
+    const { propertyId } = (await params).params
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {

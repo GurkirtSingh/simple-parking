@@ -1,15 +1,15 @@
 import { createClient } from "@/lib/supabase/server";
 import React from "react";
 
-type PropertiesLayoutProps = {
+type PropertiesLayoutProps = Promise<{
     children: React.ReactNode;
     params: {
         propertyId: string;
     }
-}
+}>
 
-export default async function PropertiesLayout({children, params}: PropertiesLayoutProps){
-    const {propertyId} = await params
+export default async function PropertiesLayout({params}: {params: PropertiesLayoutProps}){
+    const { children, params:{propertyId} } = await params
     let propertyName: string = '';
     const supabase =  await createClient()
     const {data, error} = await supabase.from('properties').select('name').eq('id', propertyId).maybeSingle()

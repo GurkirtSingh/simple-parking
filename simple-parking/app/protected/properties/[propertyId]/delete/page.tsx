@@ -4,20 +4,20 @@ import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { DeletePropertyButton } from '@/components/delete-property';
 
-type DeletePropertyButtonProps = {
+type DeletePropertyButtonProps = Promise<{
   params: {
     propertyId: string;
   }
-};
+}>;
 
-export default async function Page({params}: DeletePropertyButtonProps) {
+export default async function Page({params}: {params:DeletePropertyButtonProps}) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
         redirect('/auth/login');
     }
 
-    const { propertyId } = await params;
+    const { propertyId } = (await params).params;
     const { data: property, error: propertyError } = await supabase
         .from('properties')
         .select('*')
