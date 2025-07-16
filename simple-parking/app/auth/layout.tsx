@@ -7,7 +7,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SimpleParkingLogo } from "@/components/SimpleParkingLogo";
 
-export default function Home() {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
@@ -29,7 +33,7 @@ export default function Home() {
         </div>
         <div className="flex-1 flex flex-col max-w-5xl p-5">
           <SimpleParkingLogo className="text-6xl text-center"/>
-          <Hero />
+          {children}
         </div>
 
         <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-10">
@@ -49,3 +53,4 @@ export default function Home() {
     </main>
   );
 }
+
