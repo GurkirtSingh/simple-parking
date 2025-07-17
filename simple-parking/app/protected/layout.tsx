@@ -27,8 +27,8 @@ export default function ProtectedLayout({
         </nav>
         <div className="flex-1 flex flex-col w-full lg:max-w-6xl px-2 gap-10">
           <div className="flex justify-start gap-2">
-            <ManagePropertiesButton />
             <DashboardButton />
+            <ManagePropertiesButton />
           </div>
           {children}
         </div>
