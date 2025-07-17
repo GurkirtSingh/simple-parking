@@ -2,12 +2,12 @@ import { Tables } from "@/lib/supabase/database.types"
 import {
     Card,
     CardContent,
-    CardDescription,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { PlusCircle } from "lucide-react";
+import { Accessibility, Cable, PlusCircle } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 export enum StallStatusColor {
     arriving = 'bg-sky-300 border-sky-500 dark:text-sky-800',
@@ -26,9 +26,9 @@ export function ReservationGridCard({ stall, reservation }: ReservationGridCardP
     type ValidStatus = keyof typeof StallStatusColor;
     let status: ValidStatus = 'default'
 
-    if(reservation.is_staff){
+    if (reservation.is_staff) {
         status = "staff"
-    }else if(reservation.status){
+    } else if (reservation.status) {
         status = (reservation.status in StallStatusColor ? reservation.status : 'default') as ValidStatus;
     }
     return (
@@ -36,7 +36,6 @@ export function ReservationGridCard({ stall, reservation }: ReservationGridCardP
             <Card className={`w-full md:w-52 h-48 overflow-hidden hover:border-black border-2 ${StallStatusColor[status]}`}>
                 <CardHeader>
                     <CardTitle className="text-2xl">{stall.name}</CardTitle>
-                    <CardDescription></CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col gap-0.5 text-sm overflow-y-auto leading-tight h-full">
@@ -60,8 +59,18 @@ export function AddReservationCard({ stall, propertyId }: AddReservationCardProp
     return (
         <Link href={`/protected/properties/${propertyId}/reservations/add?stallId=${stall.id}`}>
             <Card className="w-full md:w-52 h-48 hover:border-dashed border-2">
-                <CardHeader className="flex">
+                <CardHeader className="flex items-center justify-between">
                     <CardTitle className="text-2xl">{stall.name}</CardTitle>
+                    <div className="flex gap-2">
+                        {stall.is_accessible &&
+                            <Accessibility className="text-blue-500" />}
+                        {stall.is_electric &&
+                            <Cable className="text-green-500" />}
+                        {stall.is_large &&
+                            <Badge variant="outline" className="bg-sky-500">L</Badge>}
+                        {stall.is_compact &&
+                            <Badge variant="outline" className="bg-amber-500">S</Badge>}
+                    </div>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center gap-4">
                     <PlusCircle className="text-gray-400 hover:text-foreground w-10 h-10" />
