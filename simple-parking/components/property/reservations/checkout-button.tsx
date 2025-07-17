@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 
 type CheckoutbuttonProps = {
     className?: string;
-    propertyId: string;
     reservationId: string;
 }
 export default function CheckoutReservationButton({ className, reservationId, ...props}: CheckoutbuttonProps){

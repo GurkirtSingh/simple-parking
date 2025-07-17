@@ -104,7 +104,7 @@ export function ReservationDetailCard({ propertyId, reservation, stall }: Reserv
                             <span>Checked Out</span>
                             <Check/>
                         </div>
-                    ) : (<CheckoutReservationButton propertyId={propertyId} reservationId={reservation.id} />)}
+                    ) : (<CheckoutReservationButton reservationId={reservation.id} />)}
                 </div>
             </CardContent>
             <CardFooter>

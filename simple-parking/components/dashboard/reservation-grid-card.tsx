@@ -10,9 +10,10 @@ import Link from "next/link";
 import { PlusCircle } from "lucide-react";
 
 export enum StallStatusColor {
-    arriving = 'dark:text-background bg-green-100',
-    checking_out = 'dark:text-background bg-amber-100',
-    stayover = 'bg-stayover',
+    arriving = 'bg-sky-300 border-sky-500 dark:text-sky-800',
+    checking_out = 'bg-lime-300 border-lime-500 dark:text-lime-800',
+    stayover = 'bg-zinc-300 border-zinc-500 dark:text-zinc-800',
+    staff = 'bg-purple-300 border-purple-500 dark:text-purple-800',
     default = '',
 }
 
@@ -24,18 +25,20 @@ type ReservationGridCardProps = {
 export function ReservationGridCard({ stall, reservation }: ReservationGridCardProps) {
     type ValidStatus = keyof typeof StallStatusColor;
     let status: ValidStatus = 'default'
-    if (reservation.status) {
-        status = (reservation.status in StallStatusColor ? reservation.status : 'default') as ValidStatus;
 
+    if(reservation.is_staff){
+        status = "staff"
+    }else if(reservation.status){
+        status = (reservation.status in StallStatusColor ? reservation.status : 'default') as ValidStatus;
     }
     return (
         <Link href={`/protected/properties/${reservation.property_id}/reservations/${reservation.reservation_id}/detail`}>
-            <Card className={`w-full md:w-52 h-48 overflow-hidden flex flex-col hover:shadow-xl ${StallStatusColor[status]}`}>
-                <CardHeader className="flex items-end gap-2">
+            <Card className={`w-full md:w-52 h-48 overflow-hidden hover:border-black border-2 ${StallStatusColor[status]}`}>
+                <CardHeader>
                     <CardTitle className="text-2xl">{stall.name}</CardTitle>
-                    <CardDescription>Stall</CardDescription>
+                    <CardDescription></CardDescription>
                 </CardHeader>
-                <CardContent className="flex flex-col">
+                <CardContent>
                     <div className="flex flex-col gap-0.5 text-sm overflow-y-auto leading-tight h-full">
                         {reservation.is_staff && <span className="truncate">Staff: {reservation.staff_name}</span>}
                         {reservation.hotel_room_number && <span className="truncate">Room: {reservation.hotel_room_number}</span>}
@@ -56,13 +59,12 @@ type AddReservationCardProps = {
 export function AddReservationCard({ stall, propertyId }: AddReservationCardProps) {
     return (
         <Link href={`/protected/properties/${propertyId}/reservations/add?stallId=${stall.id}`}>
-            <Card className="w-full md:w-52 h-48 hover:border-dashed border-spacing-4 border">
-                <CardHeader className="flex items-end gap-2">
+            <Card className="w-full md:w-52 h-48 hover:border-dashed border-2">
+                <CardHeader className="flex">
                     <CardTitle className="text-2xl">{stall.name}</CardTitle>
-                    <CardDescription>Stall</CardDescription>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center gap-4">
-                    <PlusCircle className="text-gray-400 hover:text-green-500 w-10 h-10" />
+                    <PlusCircle className="text-gray-400 hover:text-foreground w-10 h-10" />
                 </CardContent>
             </Card>
         </Link>
