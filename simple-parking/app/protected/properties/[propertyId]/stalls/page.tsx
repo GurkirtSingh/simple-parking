@@ -48,7 +48,6 @@ export default async function Page({ params }: { params: Promise<PropertyStallsP
     return (
         <div className="flex flex-col items-center justify-center gap-10">
             <div>
-                <h1 className="flex items-center justify-center text-2xl font-bold mb-4">{property.name}</h1>
                 <p className="mb-6">Manage the stalls for your property.</p>
             </div>
             <div className=" flex flex-col items-center justify-center w-full gap-4">
