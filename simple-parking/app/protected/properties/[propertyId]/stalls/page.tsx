@@ -15,24 +15,7 @@ export default async function Page({ params }: { params: Promise<PropertyStallsP
         redirect("/auth/login");
     }
 
-    let property: Tables<"properties"> | null = null;
-    let propertyStalls: Tables<"property_stalls">[] = [];
-
-    const {data: result, error: selectPropertyError} = await supabase
-            .from("properties")
-            .select("*")
-            .eq("id", propertyId)
-            .maybeSingle();
-    if (selectPropertyError) {
-        console.error("Error fetching property:", selectPropertyError);
-        return (<div>Error fetching property</div>);
-    }
-    if (result) {
-        property = result;
-    } else {
-        console.error("Property not found");
-        return (<div>Property not found</div>);
-    }   
+    let propertyStalls: Tables<"property_stalls">[] = []; 
 
     const { data: stalls, error: stallError } = await supabase
         .from("property_stalls")
