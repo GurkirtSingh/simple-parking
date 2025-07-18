@@ -2,12 +2,23 @@
 
 Simple Parking App is a lightweight, modern web app designed for properties to manage parking spaces with ease.
 
-Built with:
-- Next.js 15 (App Router)
-- Supabase (Auth, DB, RLS, Storage)
-- Tailwind CSS
-- TypeScript
-- Deployed on Vercel
+## Screenshots
+
+### Landing Page
+
+<img width="1800" height="976" alt="landingpage" src="https://github.com/user-attachments/assets/e5ba0f5e-8030-4662-9c7e-a0a30dbe2c0d" />
+
+### Dashboard
+
+<img width="1800" height="976" alt="dashboard" src="https://github.com/user-attachments/assets/831c40d2-f5c7-4089-a235-12cddd4f30be" />
+
+### Small Screens
+
+<img width="311" height="886" alt="dashboard_mobile" src="https://github.com/user-attachments/assets/840316f4-cb76-4093-8e8d-f787edf23c90" />
+
+<img width="311" height="886" alt="properties_mobile_dark" src="https://github.com/user-attachments/assets/62b04508-6aa4-4ec3-9269-68813ac7e688" />
+
+<img width="311" height="886" alt="newRes+mobile_dark" src="https://github.com/user-attachments/assets/49f7a9a1-6b28-4342-90e8-8546a0476f35" />
 
 ---
 
