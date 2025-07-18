@@ -35,7 +35,7 @@ export function ReservationGridCard({ stall, reservation }: ReservationGridCardP
         <Link href={`/protected/properties/${reservation.property_id}/reservations/${reservation.reservation_id}/detail`}>
             <Card className={`w-full md:w-52 h-48 overflow-hidden hover:border-black border-2 ${StallStatusColor[status]}`}>
                 <CardHeader>
-                    <CardTitle className="text-2xl">{stall.name}</CardTitle>
+                    <CardTitle className="text-2xl max-w-48 truncate">{stall.name}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="flex flex-col gap-0.5 text-sm overflow-y-auto leading-tight h-full">
@@ -60,7 +60,7 @@ export function AddReservationCard({ stall, propertyId }: AddReservationCardProp
         <Link href={`/protected/properties/${propertyId}/reservations/add?stallId=${stall.id}`}>
             <Card className="w-full md:w-52 h-48 hover:border-dashed border-2">
                 <CardHeader className="flex items-center justify-between">
-                    <CardTitle className="text-2xl">{stall.name}</CardTitle>
+                    <CardTitle className="text-2xl max-w-48 truncate">{stall.name}</CardTitle>
                     <div className="flex gap-2">
                         {stall.is_accessible &&
                             <Accessibility className="text-blue-500" />}
