@@ -1,27 +1,15 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { getUser, getUserProperties } from "@/lib/supabase/property";
-import { cn } from "@/lib/utils";
+import { Building } from "lucide-react";
 
-type ManagePropertiesButtonProps = {
-    className?: string
-}
-export default async function ManagePropertiesButton({ className }: ManagePropertiesButtonProps) {
-    const user = await getUser()
-    if(user){
-        const {userProperties} = await getUserProperties(user.id)
-        if(userProperties){
-            const adminProperty = userProperties.find((userProperty) => (userProperty.role === 'admin'))
-            if(!adminProperty){
-                return null
-            }
-        }
-    }
-    return (
-        <div className={cn(className)}>
-            <Link href={`/protected/properties`}>
-                <Button variant="outline">Manage Properties</Button>
-            </Link>
-        </div>
-    )
+export default async function ManagePropertiesButton() {
+      return (
+    <Link href="/protected/properties" >
+      
+      <Button variant="outline">
+        <Building/>
+        Properties
+        </Button>
+    </Link>
+  )
 }
