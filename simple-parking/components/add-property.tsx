@@ -139,7 +139,7 @@ export function PropertyForm({property}: PropertyFormProps) {
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading || !name || !address}>
-                {isLoading ? "Adding a property..." : "Add Property"}
+                {isLoading ? (property ? "Updating property..." : "Adding a property...") : ( property ? "Update Property" : "Add Property")}
               </Button>
             </div>
           </form>
