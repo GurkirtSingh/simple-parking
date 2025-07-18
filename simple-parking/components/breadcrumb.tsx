@@ -26,7 +26,7 @@ export default function BreadcrumbClient(){
                         <span className="text-muted-foreground">{label}</span>
                     ) : (
                         <BreadcrumbLink asChild>
-                            <Link href={href}>{label}</Link>
+                            <Link href={"/protected"+href}>{label}</Link>
                         </BreadcrumbLink>
                     )}
                 </BreadcrumbItem>
