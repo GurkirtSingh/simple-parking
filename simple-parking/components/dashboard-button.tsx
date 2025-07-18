@@ -1,13 +1,17 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { LayoutDashboard } from "lucide-react";
+import Link from "next/link";
 
 export function DashboardButton() {
-  const router = useRouter();
 
-  const goToDashboard = async () => {
-    router.push("/protected/dashboard");
-  };
-
-  return <Button variant='outline' onClick={goToDashboard}>Dashboard</Button>;
+  return (
+    <Link href="/protected/dashboard" >
+      
+      <Button variant="outline">
+        <LayoutDashboard />
+        Dashboard
+        </Button>
+    </Link>
+  )
 }
