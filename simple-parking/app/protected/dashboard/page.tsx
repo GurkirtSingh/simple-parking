@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import DashboardToast from "@/components/dashboard/toast";
 import PropertyTabs from "@/components/dashboard/property-tabs";
+import { Suspense } from "react";
+import {LoadingPropertyStalls} from "./loading";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -30,34 +30,12 @@ export default async function Page() {
       redirect("/protected/setup-profile");
     }
   }
-  // fetch user assigned properties
-  const { data: userProperties, error:userPropertieserror } = await supabase
-    .from("user_properties")
-    .select("*, properties(name)")
-    .eq("user_id", data.user.id)
-
-  if (userPropertieserror) {
-    console.error(userProperties)
-  }
   return (
     <div className="flex w-full flex-col gap-12">
-      <DashboardToast/>
-      {userProperties && userProperties.length > 0 ? (
-        <PropertyTabs userProperties={userProperties ?? []}/>
-      ) : (
-        <div className="text-center text-gray-500">
-          You have no properties yet. Start by adding a property.
-          <div className="text-center text-gray-500">
-            <div>
-              <Button variant="outline" className="mt-4">
-                <Link href="/protected/properties/add">Add Property</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-
-
-      )}
+      <DashboardToast />
+      <Suspense fallback={<LoadingPropertyStalls/>}>
+      <PropertyTabs userId={data.user.id} />
+      </Suspense>
     </div>
   );
 }
