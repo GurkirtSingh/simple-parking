@@ -50,6 +50,7 @@ export function ReservationFrom({
     const [checkOutDate, setCheckOutDate] = useState<string>(reservation?.check_out ? new Date(reservation.check_out).toLocaleDateString('en-CA') : new Date(Date.now() + 86400000).toLocaleDateString('en-CA'));
     const [checkOutTime, setCheckOutTime] = useState<string>(reservation?.check_out ? new Date(reservation.check_out).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) : "13:00:00");
     const [notes, setNotes] = useState<string>(reservation?.notes || "");
+    const [isAkiaPaid, setIsAkiaPaid] = useState<boolean | null>(reservation?.is_akia_paid || false);
     const [openCheckIn, setOpenCheckIn] = useState(false);
     const [openCheckOut, setOpenCheckOut] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -140,7 +141,8 @@ export function ReservationFrom({
                     check_in: combinedCheckIn,
                     check_out: combinedCheckOut,
                     notes: notes,
-                    checked_out: false
+                    checked_out: false,
+                    is_akia_paid: isAkiaPaid
                 });
                 if (updateError) {
                     setError(updateError);
@@ -159,7 +161,8 @@ export function ReservationFrom({
                     check_in: combinedCheckIn,
                     check_out: combinedCheckOut,
                     notes: notes,
-                    checked_out: false
+                    checked_out: false,
+                    is_akia_paid: isAkiaPaid
                 });
                 if (insertError) {
                     setError(insertError);
@@ -355,6 +358,14 @@ export function ReservationFrom({
                                     rows={3}
                                     value={notes}
                                     onChange={(e) => setNotes(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex gap-2">
+                                <Label htmlFor="isAkiaPaid">Paid on Akia?</Label>
+                                <Checkbox
+                                    id="isAkiaPaid"
+                                    checked={!!isAkiaPaid}
+                                    onCheckedChange={(checked) => setIsAkiaPaid(!!checked)}
                                 />
                             </div>
                             {error && <p className="text-sm text-red-500">{error}</p>}
