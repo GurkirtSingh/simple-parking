@@ -2,6 +2,7 @@ import { Tables } from "@/lib/supabase/database.types"
 import {
     Card,
     CardContent,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -11,7 +12,7 @@ import { Badge } from "../ui/badge";
 
 export enum StallStatusColor {
     arriving = 'bg-sky-300 border-sky-500 dark:text-sky-800',
-    checking_out = 'bg-lime-300 border-lime-500 dark:text-lime-800',
+    checking_out = 'bg-[--checkout] border-amber-500 dark:text-lime-800',
     stayover = 'bg-zinc-300 border-zinc-500 dark:text-zinc-800',
     staff = 'bg-purple-300 border-purple-500 dark:text-purple-800',
     default = '',
@@ -33,12 +34,13 @@ export function ReservationGridCard({ stall, reservation }: ReservationGridCardP
     }
     return (
         <Link href={`/protected/properties/${reservation.property_id}/reservations/${reservation.reservation_id}/detail`}>
-            <Card className={`w-full md:w-52 h-48 overflow-hidden hover:border-black border-2 ${StallStatusColor[status]}`}>
-                <CardHeader>
-                    <CardTitle className="text-2xl max-w-48 truncate">{stall.name}</CardTitle>
+            <Card className={`w-full md:w-52 h-44 flex flex-col gap-2 overflow-hidden hover:border-black border-2 ${StallStatusColor[status]} py-4`}>
+                <CardHeader className="flex justify-between items-center">
+                    <CardTitle className="text-2xl max-w-48 truncate ">{stall.name}</CardTitle>
+                    {reservation.is_akia_paid && <Badge>Akia</Badge>}
                 </CardHeader>
-                <CardContent>
-                    <div className="flex flex-col gap-0.5 text-sm overflow-y-auto leading-tight h-full">
+                <CardContent className="h-full">
+                    <div className="flex flex-col gap-0.5 text-sm overflow-y-auto leading-tight ">
                         {reservation.is_staff && <span className="truncate">Staff: {reservation.staff_name}</span>}
                         {reservation.hotel_room_number && <span className="truncate">Room: {reservation.hotel_room_number}</span>}
                         {reservation.hotel_reservation_number && <span className="truncate">Res ID: {reservation.hotel_reservation_number}</span>}
@@ -46,6 +48,9 @@ export function ReservationGridCard({ stall, reservation }: ReservationGridCardP
                         {reservation.notes && <span className="truncate">Notes: {reservation.notes}</span>}
                     </div>
                 </CardContent>
+                <CardFooter>
+                    {reservation.is_akia_paid && <p className=" text-[10px] truncate">* This reservation is paid on Akia</p>}
+                </CardFooter>
             </Card>
         </Link>
     )
@@ -58,7 +63,7 @@ type AddReservationCardProps = {
 export function AddReservationCard({ stall, propertyId }: AddReservationCardProps) {
     return (
         <Link href={`/protected/properties/${propertyId}/reservations/add?stallId=${stall.id}`}>
-            <Card className="w-full md:w-52 h-48 hover:border-dashed border-2">
+            <Card className="w-full md:w-52 h-44 hover:border-dashed border-2">
                 <CardHeader className="flex items-center justify-between">
                     <CardTitle className="text-2xl max-w-48 truncate">{stall.name}</CardTitle>
                     <div className="flex gap-2">

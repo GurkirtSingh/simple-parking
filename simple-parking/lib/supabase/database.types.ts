@@ -165,6 +165,7 @@ export type Database = {
           hotel_reservation_number: string | null
           hotel_room_number: string | null
           id: string
+          is_akia_paid: boolean | null
           is_staff: boolean | null
           license_plate: string | null
           notes: string | null
@@ -181,6 +182,7 @@ export type Database = {
           hotel_reservation_number?: string | null
           hotel_room_number?: string | null
           id?: string
+          is_akia_paid?: boolean | null
           is_staff?: boolean | null
           license_plate?: string | null
           notes?: string | null
@@ -197,6 +199,7 @@ export type Database = {
           hotel_reservation_number?: string | null
           hotel_room_number?: string | null
           id?: string
+          is_akia_paid?: boolean | null
           is_staff?: boolean | null
           license_plate?: string | null
           notes?: string | null
@@ -274,6 +277,7 @@ export type Database = {
         Row: {
           hotel_reservation_number: string | null
           hotel_room_number: string | null
+          is_akia_paid: boolean | null
           is_staff: boolean | null
           license_plate: string | null
           notes: string | null
@@ -286,6 +290,7 @@ export type Database = {
         Insert: {
           hotel_reservation_number?: string | null
           hotel_room_number?: string | null
+          is_akia_paid?: boolean | null
           is_staff?: boolean | null
           license_plate?: string | null
           notes?: string | null
@@ -298,6 +303,7 @@ export type Database = {
         Update: {
           hotel_reservation_number?: string | null
           hotel_room_number?: string | null
+          is_akia_paid?: boolean | null
           is_staff?: boolean | null
           license_plate?: string | null
           notes?: string | null
