@@ -23,16 +23,24 @@ export function ParkingGrid({ propertyId }: ParkingGridProps) {
                 setReservations(data)
             }
         }
-        const channel = supabase.channel('table_db_changes').on(
-            'postgres_changes',
-            { event: '*', schema: 'public', table: 'reservations' },
-            () => {
+        const reservations_changes = async ()=> {
+            await supabase.realtime.setAuth()
+            const channel = supabase
+            .channel(`reservations:changes`, {
+                config: {private: true},
+            })
+            .on('broadcast', { event: '*' }, () => {
                 fetchReservationStatus()
+            })
+            .subscribe()
+
+            return ()=>{
+                supabase.removeChannel(channel)
             }
-        ).subscribe()
+        }
+        reservations_changes()
 
         fetchReservationStatus()
-        return () => { channel.unsubscribe() }
     }, [propertyId, supabase])
 
     // fetch property's all stalls
