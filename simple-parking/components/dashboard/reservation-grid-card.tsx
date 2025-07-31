@@ -63,7 +63,7 @@ type AddReservationCardProps = {
 export function AddReservationCard({ stall, propertyId }: AddReservationCardProps) {
     return (
         <Link href={`/protected/properties/${propertyId}/reservations/add?stallId=${stall.id}`}>
-            <Card className="w-full md:w-52 h-44 hover:border-dashed border-2">
+            <Card className="w-full md:w-52 h-44 hover:border-dashed border-2 py-4">
                 <CardHeader className="flex items-center justify-between">
                     <CardTitle className="text-2xl max-w-48 truncate">{stall.name}</CardTitle>
                     <div className="flex gap-2">
