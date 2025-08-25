@@ -114,7 +114,7 @@ export function ParkingGrid({ propertyId }: ParkingGridProps) {
                                 {levelStalls.map((stall) => {
                                     const activeRes = reservations.find(res => res.stall_id === stall.id);
                                     return (
-                                        <div key={stall.id} className="relative flex-shrink-0 w-full md:w-52 h-44">
+                                        <div key={stall.id} className="flex-shrink-0 w-full md:w-52 h-44">
                                             <AnimatePresence mode="wait">
                                                 {activeRes ? (
                                                     <motion.div
@@ -124,7 +124,7 @@ export function ParkingGrid({ propertyId }: ParkingGridProps) {
                                                         animate={{ opacity: 1, scale: 1 }}
                                                         exit={{ opacity: 0, scale: 1.1 }}
                                                         transition={{ duration: 0.25 }}
-                                                        className="absolute inset-0"
+                                                        className="inset-0"
                                                     >
                                                         <ReservationGridCard stall={stall} reservation={activeRes} />
                                                     </motion.div>
@@ -136,7 +136,7 @@ export function ParkingGrid({ propertyId }: ParkingGridProps) {
                                                         animate={{ opacity: 1, scale: 1 }}
                                                         exit={{ opacity: 0, scale: 1.1 }}
                                                         transition={{ duration: 0.25 }}
-                                                        className="absolute inset-0"
+                                                        className="inset-0"
                                                     >
                                                         <AddReservationCard stall={stall} propertyId={stall.property_id} />
                                                     </motion.div>
