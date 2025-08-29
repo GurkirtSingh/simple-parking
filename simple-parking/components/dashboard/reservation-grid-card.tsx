@@ -11,10 +11,10 @@ import { Accessibility, Cable, PlusCircle } from "lucide-react";
 import { Badge } from "../ui/badge";
 
 export enum StallStatusColor {
-    arriving = 'bg-sky-300 border-sky-500 dark:text-sky-800',
-    checking_out = 'bg-[--checkout] border-amber-500 dark:text-lime-800',
-    stayover = 'bg-zinc-300 border-zinc-500 dark:text-zinc-800',
-    staff = 'bg-purple-300 border-purple-500 dark:text-purple-800',
+    arriving = 'bg-[--arriving] border-[--arriving-border]',
+    checking_out = 'bg-[--checkout] border-[--checkout-border]',
+    stayover = 'bg-[--stayover] border-[--stayover-border]',
+    staff = 'bg-[--staff] border-[--staff-border]',
     default = '',
 }
 
@@ -34,7 +34,7 @@ export function ReservationGridCard({ stall, reservation }: ReservationGridCardP
     }
     return (
         <Link href={`/protected/properties/${reservation.property_id}/reservations/${reservation.reservation_id}/detail`}>
-            <Card className={`w-full md:w-52 h-44 flex flex-col gap-2 overflow-hidden hover:border-black border-2 ${StallStatusColor[status]} py-4`}>
+            <Card className={`w-full md:w-52 h-44 flex flex-col gap-2 overflow-hidden hover:border-foreground border-2 ${StallStatusColor[status]} text-[--card-text] py-4`}>
                 <CardHeader className="flex justify-between items-center">
                     <CardTitle className="text-2xl max-w-48 truncate ">{stall.name}</CardTitle>
                     {reservation.is_akia_paid && <Badge>Akia</Badge>}
