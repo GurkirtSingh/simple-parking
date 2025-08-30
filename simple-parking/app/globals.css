@@ -69,18 +69,28 @@
 
 @layer base {
   :root {
-    --arriving: oklch(0.828 0.111 230.318);
-    --checkout: oklch(0.924 0.12 95.746);
-    --staff: oklch(0.827 0.119 306.383);
-    --stayover: oklch(0.871 0.006 286.286);
-    --available: oklch(0.87 0 0);
+    --card-text: hsl(0 0% 0%);
+    --arriving: hsl(200 100% 85%);
+    --arriving-border: hsl(200 70% 70%);
+    --checkout: hsl(58 100% 85%);
+    --checkout-border: hsl(58 70% 70%);
+    --staff: hsl(255 100% 85%);
+    --staff-border: hsl(255 70% 70%);
+    --stayover: hsl(0 0% 60%);
+    --stayover-border: hsl(0 0% 50%);
+    --available: hsl(0 0% 80%);
   }
 
   .dark {
-    --arriving: oklch(0.746 0.16 232.661);
-    --checkout: oklch(0.924 0.12 95.746);
-    --staff: oklch(0.714 0.203 305.504);
-    --stayover: oklch(0.552 0.016 285.938);
-    --available: oklch(0.556 0 0);
+    --card-text: hsl(0 0% 75%);
+    --arriving: hsl(200 50% 30%);
+    --arriving-border: hsl(200 50% 20%);
+    --checkout: hsl(58 50% 30%);
+    --checkout-border: hsl(58 50% 20%);
+    --staff: hsl(255 50% 30%);
+    --staff-border: hsl(255 50% 20%);
+    --stayover: hsl(0 0% 30%);
+    --stayover-border: hsl(0 0% 20%);
+    --available: hsl(0 0% 40%);
   }
 }
