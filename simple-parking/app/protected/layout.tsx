@@ -26,9 +26,6 @@ export default function ProtectedLayout({
           </div>
         </nav>
         <div className="flex-1 flex flex-col w-full lg:max-w-6xl px-2 gap-10 pt-20">
-          <div className="w-full bg-yellow-100 border-b border-yellow-400 text-yellow-800 p-3 text-center text-sm">
-          ⚠️ The app will be down in a few hours. Please move your data to a new place. I wish you all the best! - Gurkirt Singh
-        </div>
           <div className="flex justify-start gap-2">
             <DashboardButton />
             <ManagePropertiesButton />
